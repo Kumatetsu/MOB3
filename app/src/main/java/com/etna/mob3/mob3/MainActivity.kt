@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import com.etna.mob3.services.Services
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun downloadButtonPressed() {
-        Log.d("download","download button pressed")
+        Log.d("download", "download button pressed")
+        Services.getFiles()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
