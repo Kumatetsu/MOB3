@@ -14,14 +14,13 @@ object Services {
     fun getFiles() {
         Log.d("getfiles", "getfiles called")
         var dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        if (dir.exists()) {
+        if (!dir.exists()) {
             Log.d("empty folder", "Download folder is empty")
-         }
-// else {
-//            var files = dir.listFiles()
-//            files.forEach {
-//                Log.d("file", files.toString())
-//            }
-//        }
+         } else {
+            var files = dir.list()
+            files.forEach {
+                element -> Log.d("element", element)
+            }
+        }
     }
 }
