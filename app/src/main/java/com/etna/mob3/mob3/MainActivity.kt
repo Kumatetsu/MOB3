@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,12 +57,9 @@ class MainActivity : AppCompatActivity() {
 
     fun performFileSearch() {
 
-        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
-        // browser.
+        // The wanted action (we want to open a document)
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
-        // Filter to only show results that can be "opened", such as a
-        // file (as opposed to a list of contacts or timezones)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
 
         // Filter to show only images, using the image MIME data type.
@@ -87,7 +85,16 @@ class MainActivity : AppCompatActivity() {
             if (resultData != null) {
 
                 // the uri of the selected document
+                resultData.data
                 uri = resultData.data
+
+                val selectedfile = File(uri.path)
+                val fileCopy: File = File(uri.path)
+
+                var downloader = Downloader()
+
+                Downloader()
+               // downloader.copyFile(selectedfile, fileCopy)
 
                 Log.d("", "Uri: " + uri!!.toString())
             }
