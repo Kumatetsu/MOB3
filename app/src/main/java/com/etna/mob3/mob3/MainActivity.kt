@@ -22,10 +22,11 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    private val READ_REQUEST_CODE = 42
-    private val FILE_SELECT_CODE = 1
-    private val TAG = "MainActivity"
-    private val APP_DIR: String = "/storage/emulated/0/Download/"
+    private val READ_REQUEST_CODE: Int = 42
+    private val FILE_SELECT_CODE: Int = 1
+    private val TAG: String = "MainActivity"
+    private val DL_DIR: String = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+    private val APP_DIR: String = "/storage/emulated/0/Meteo/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,41 +76,41 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
         }
 
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        val dl_file: File
-        val cp_file: File
+        var dl_file: File
+        var cp_file: File
+        super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
             FILE_SELECT_CODE -> if (resultCode == Activity.RESULT_OK) {
                 // Get the Uri of the selected file
                 val uri = data.data
-                Log.d(TAG, "File Uri: " + uri!!.toString())
                 // Get the path in file utils
-                val path = uri.path
-                Log.d(TAG, "File Path: " + path)
-                dl_file = File("/storage/emulated/0/Download/1_ENHANCED_25.his")
-                Log.d(TAG, "file name: " + dl_file.absolutePath)
-                cp_file = File(APP_DIR + "TESTSAMERE.his")
-                val toto = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
-                Log.d("test", toto)
-//                try {
-//                    val toto = dl_file.readLines(Charsets.UTF_8)
-//                    Log.d(TAG, toto[1])
-//                } catch (e: Exception) {
-//                    Log.d(TAG, e.toString())
-//                }
+                var path = uri.path.removePrefix("/document/raw:")
+                Log.d("path", path)
+
+                // Pour get le filename on crée une variable de type File() pour
+                // avoir accès à la méthode getName()
+                dl_file = File(path)
+                var file_name: String = dl_file.name
+
+                // On modifie la route du dl file pour que celui ci soit
+                // utilisable par la fonction copyTo
+                cp_file = File(APP_DIR + file_name)
+
+                // On try catch pour éviter que si le fichier n'est pas trouvable on bloque
+                // L'application
                 try {
-                    dl_file.copyTo(cp_file)
+                    dl_file.copyTo(cp_file, true)
                     Log.d("Result", "files copied")
+                    Log.d("Resultpath", cp_file.canonicalPath)
                 } catch (e: Exception) {
                     Log.d(TAG, e.toString())
                 }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }
