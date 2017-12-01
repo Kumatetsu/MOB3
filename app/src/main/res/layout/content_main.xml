@@ -11,12 +11,28 @@
     <Button
         android:id="@+id/downloadButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="517dp"
-        android:layout_marginEnd="468dp"
-        android:layout_marginStart="468dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="524dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="796dp"
+        android:layout_marginTop="32dp"
         android:text="Download file"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:layout_width="533dp"
+        android:layout_height="527dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/downloadButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
