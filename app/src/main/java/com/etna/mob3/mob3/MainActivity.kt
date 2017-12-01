@@ -78,36 +78,40 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         var dl_file: File
         var cp_file: File
         super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            Log.d("Info", "Intent is null, no file selected")
+        } else {
 
-        when (requestCode) {
-            FILE_SELECT_CODE -> if (resultCode == Activity.RESULT_OK) {
-                // Get the Uri of the selected file
-                val uri = data.data
-                // Get the path in file utils
-                var path = uri.path.removePrefix("/document/raw:")
-                Log.d("path", path)
+            when (requestCode) {
+                FILE_SELECT_CODE -> if (resultCode == Activity.RESULT_OK) {
+                    // Get the Uri of the selected file
+                    val uri = data.data
+                    // Get the path in file utils
+                    var path = uri.path.removePrefix("/document/raw:")
+                    Log.d("path", path)
 
-                // Pour get le filename on crée une variable de type File() pour
-                // avoir accès à la méthode getName()
-                dl_file = File(path)
-                var file_name: String = dl_file.name
+                    // Pour get le filename on crée une variable de type File() pour
+                    // avoir accès à la méthode getName()
+                    dl_file = File(path)
+                    var file_name: String = dl_file.name
 
-                // On modifie la route du dl file pour que celui ci soit
-                // utilisable par la fonction copyTo
-                cp_file = File(APP_DIR + file_name)
+                    // On modifie la route du dl file pour que celui ci soit
+                    // utilisable par la fonction copyTo
+                    cp_file = File(APP_DIR + file_name)
 
-                // On try catch pour éviter que si le fichier n'est pas trouvable on bloque
-                // L'application
-                try {
-                    dl_file.copyTo(cp_file, true)
-                    Log.d("Result", "files copied")
-                    Log.d("Resultpath", cp_file.canonicalPath)
-                } catch (e: Exception) {
-                    Log.d(TAG, e.toString())
+                    // On try catch pour éviter que si le fichier n'est pas trouvable on bloque
+                    // L'application
+                    try {
+                        dl_file.copyTo(cp_file, true)
+                        Log.d("Result", "files copied")
+                        Log.d("Resultpath", cp_file.canonicalPath)
+                    } catch (e: Exception) {
+                        Log.d(TAG, e.toString())
+                    }
                 }
             }
         }
