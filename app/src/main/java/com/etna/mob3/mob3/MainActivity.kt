@@ -13,8 +13,13 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
+<<<<<<< HEAD
 
 
+=======
+import android.widget.Toast
+import com.etna.mob3.mob3.tools.Tools
+>>>>>>> On ajoute l'objet parser et on recupere la date du fichier.
 
 
 class MainActivity : AppCompatActivity() {
@@ -96,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     // Pour get le filename on crée une variable de type File() pour
                     // avoir accès à la méthode getName()
                     dl_file = File(path)
-                    var file_name: String = dl_file.name
+                    var file_name: String = Tools.getFileName(dl_file)
 
                     // On modifie la route du dl file pour que celui ci soit
                     // utilisable par la fonction copyTo
