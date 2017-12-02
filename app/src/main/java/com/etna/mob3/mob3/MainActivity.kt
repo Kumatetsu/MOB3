@@ -1,23 +1,18 @@
 package com.etna.mob3.mob3
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import java.net.URISyntaxException
 import java.io.File
-import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         downloadButton.setOnClickListener {
             downloadButtonPressed()
         }
+
+        fillList()
     }
 
     fun downloadButtonPressed() {
@@ -117,4 +114,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun fillList() {
+
+        val list = arrayOf("test1", "test2")
+
+        var listAdapater = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+
+        fileList.adapter = listAdapater
+    }
 }
