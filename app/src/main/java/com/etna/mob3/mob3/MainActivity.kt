@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
         // TODO replace pathname with the APP_DIR
 
-        File("/sdcard/Download/").walkTopDown().forEach {
+        File(APP_DIR).walkTopDown().forEach {
             fileArray.add(it.name)
         }
 
