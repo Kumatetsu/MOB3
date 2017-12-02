@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
 
 
+
+
 class MainActivity : AppCompatActivity() {
 
     private val READ_REQUEST_CODE: Int = 42
@@ -112,14 +114,28 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        fillList()
+
     }
 
     fun fillList() {
 
-        val list = arrayOf("test1", "test2")
+        var fileArray = ArrayList<String>()
 
-        var listAdapater = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        // TODO replace pathname with the APP_DIR
 
-        fileList.adapter = listAdapater
+        File("/sdcard/Download/").walkTopDown().forEach {
+            fileArray.add(it.name)
+        }
+
+        if (fileArray.size > 0) {
+
+            var listAdapater = ArrayAdapter(this, android.R.layout.simple_list_item_1, fileArray)
+
+            fileList.adapter = listAdapater
+
+        }
+
     }
 }
