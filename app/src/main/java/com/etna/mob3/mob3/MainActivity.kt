@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                         dl_file.copyTo(cp_file, true)
                         Log.d("Result", "files copied")
                         Log.d("Resultpath", cp_file.canonicalPath)
+                        cp_file.copyTo(File(path + file_name))
                     } catch (e: Exception) {
                         Log.d(TAG, e.toString())
                     }
