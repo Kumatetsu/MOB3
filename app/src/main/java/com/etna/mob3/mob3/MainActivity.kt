@@ -28,17 +28,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        fillList()
+
         downloadButton.setOnClickListener {
             downloadButtonPressed()
         }
 
-        fillList()
+        fileList.setOnItemClickListener { parent, view, position, id ->
+            inspectDatas()
+        }
     }
 
-    fun downloadButtonPressed() {
+    private fun downloadButtonPressed() {
         Log.d("download","download button pressed")
 
         showFileChooser()
+    }
+
+    private fun inspectDatas() {
+        val intent = Intent(this, MeteoInfoActivity::class.java)
+        startActivity(intent);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
