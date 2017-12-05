@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
 import com.etna.mob3.mob3.tools.Tools
+import java.io.ObjectInput
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,8 +35,13 @@ class MainActivity : AppCompatActivity() {
             downloadButtonPressed()
         }
 
-        fileList.setOnItemClickListener { parent, view, position, id ->
-            inspectDatas()
+        fileList.setOnItemClickListener { parent, view, position: Int, id ->
+            val fileName = fileList.getItemAtPosition(position) as String
+            val selectedFile : File = File(APP_DIR + fileName)
+
+            var parsing_result = Tools.parseFile(selectedFile)
+            //val intent = Intent(this, MeteoInfoActivity::class.java)
+            //startActivity(intent);
         }
     }
 
@@ -43,11 +49,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("download","download button pressed")
 
         showFileChooser()
-    }
-
-    private fun inspectDatas() {
-        val intent = Intent(this, MeteoInfoActivity::class.java)
-        startActivity(intent);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     // Pour get le filename on crée une variable de type File() pour
                     // avoir accès à la méthode getName()
                     dl_file = File(path)
-                    var file_name: String = Tools.getFileName(dl_file)
+                    var file_name: String = Tools.getFileDate(dl_file)
 
                     // On modifie la route du dl file pour que celui ci soit
                     // utilisable par la fonction copyTo

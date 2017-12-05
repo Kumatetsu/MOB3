@@ -1,6 +1,7 @@
 package com.etna.mob3.mob3.tools
 
 import android.util.Log
+import com.etna.mob3.mob3.classes.FileDatas
 import java.io.File
 
 /**
@@ -9,7 +10,7 @@ import java.io.File
 
 object Tools {
 
-    fun getFileName(file: File): String {
+    fun getFileDate(file: File): String {
         val regex = Regex("\\S*-\\S*")
         var regexResult: MatchResult
 
@@ -20,5 +21,10 @@ object Tools {
         Log.d("Line", regexResult.value)
 
         return regexResult.value
+    }
+
+    fun parseFile (file: File): String {
+        val datas = FileDatas()
+        return "OK"
     }
 }
