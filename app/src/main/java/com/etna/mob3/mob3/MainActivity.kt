@@ -8,17 +8,21 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.etna.mob3.mob3.classes.CustomAdapter
+import com.etna.mob3.mob3.classes.DataModel
 import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
 
 
-
 class MainActivity : AppCompatActivity() {
+
+    var dataModels: ArrayList<DataModel> = ArrayList()
+
+    private var adapter: CustomAdapter? = null
+
 
     private val READ_REQUEST_CODE: Int = 42
     private val FILE_SELECT_CODE: Int = 1
@@ -131,7 +135,30 @@ class MainActivity : AppCompatActivity() {
 
     fun fillList() {
 
-        var fileArray = ArrayList<String>()
+        dataModels.add(DataModel("Apple Pie", false))
+        dataModels.add(DataModel("Banana Bread", false))
+        dataModels.add(DataModel("Cupcake", false))
+        dataModels.add(DataModel("Donut", true))
+        dataModels.add(DataModel("Eclair", true))
+        dataModels.add(DataModel("Froyo", true))
+        dataModels.add(DataModel("Gingerbread", true))
+        dataModels.add(DataModel("Honeycomb", false))
+        dataModels.add(DataModel("Ice Cream Sandwich", false))
+        dataModels.add(DataModel("Jelly Bean", false))
+        dataModels.add(DataModel("Kitkat", false))
+        dataModels.add(DataModel("Lollipop", false))
+        dataModels.add(DataModel("Marshmallow", false))
+        dataModels.add(DataModel("Nougat", false))
+
+        adapter = CustomAdapter(dataModels, applicationContext)
+
+
+        if (dataModels.size > 0) {
+
+            this.fileList.setAdapter(adapter)
+
+        }
+        /*var fileArray = ArrayList<String>()
 
        // this.fileList.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
 
@@ -155,6 +182,6 @@ class MainActivity : AppCompatActivity() {
             parent.setSelection(position)
 
             true
-        }
+        }*/
     }
 }
