@@ -8,13 +8,15 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
-import com.etna.mob3.mob3.tools.Tools
-import java.io.ObjectInput
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -131,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
         var fileArray = ArrayList<String>()
 
-        // TODO replace pathname with the APP_DIR
+       // this.fileList.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
 
         File(APP_DIR).walkTopDown().forEach {
             fileArray.add(it.name)
@@ -145,5 +147,14 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        this.fileList.isLongClickable = true
+
+        this.fileList.onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
+            Log.d("press", "long press")
+
+            parent.setSelection(position)
+
+            true
+        }
     }
 }
