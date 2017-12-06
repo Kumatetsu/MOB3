@@ -8,10 +8,12 @@ public class DataModel {
 
     public String name;
     boolean checked;
+    boolean isCheckVisible;
 
-    public DataModel(String name, boolean checked) {
+    public DataModel(String name, boolean checked, boolean checkVisibility) {
         this.name = name;
         this.checked = checked;
+        this.isCheckVisible = checkVisibility;
 
     }
 }

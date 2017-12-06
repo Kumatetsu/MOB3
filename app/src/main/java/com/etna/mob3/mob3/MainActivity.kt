@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.Toast
 import com.etna.mob3.mob3.classes.CustomAdapter
 import com.etna.mob3.mob3.classes.DataModel
@@ -19,10 +20,7 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
-    var dataModels: ArrayList<DataModel> = ArrayList()
-
     private var adapter: CustomAdapter? = null
-
 
     private val READ_REQUEST_CODE: Int = 42
     private val FILE_SELECT_CODE: Int = 1
@@ -53,8 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun downloadButtonPressed() {
         Log.d("download","download button pressed")
-
         showFileChooser()
+        this.showCheckbox()
+    }
+
+    private fun showCheckbox() {
+        adapter!!.showCheckbox()
+        adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         var dl_file: File
         var cp_file: File
         super.onActivityResult(requestCode, resultCode, data)
+
         if (data == null) {
             Log.d("Info", "Intent is null, no file selected")
         } else {
@@ -135,29 +139,17 @@ class MainActivity : AppCompatActivity() {
 
     fun fillList() {
 
-        dataModels.add(DataModel("Apple Pie", false))
-        dataModels.add(DataModel("Banana Bread", false))
-        dataModels.add(DataModel("Cupcake", false))
-        dataModels.add(DataModel("Donut", true))
-        dataModels.add(DataModel("Eclair", true))
-        dataModels.add(DataModel("Froyo", true))
-        dataModels.add(DataModel("Gingerbread", true))
-        dataModels.add(DataModel("Honeycomb", false))
-        dataModels.add(DataModel("Ice Cream Sandwich", false))
-        dataModels.add(DataModel("Jelly Bean", false))
-        dataModels.add(DataModel("Kitkat", false))
-        dataModels.add(DataModel("Lollipop", false))
-        dataModels.add(DataModel("Marshmallow", false))
-        dataModels.add(DataModel("Nougat", false))
-
+        var dataModels: ArrayList<DataModel> = ArrayList()
         adapter = CustomAdapter(dataModels, applicationContext)
 
+        File(APP_DIR).walkTopDown().forEach {
+            dataModels.add(DataModel(it.name, false, false))
+        }
 
         if (dataModels.size > 0) {
-
             this.fileList.setAdapter(adapter)
-
         }
+
         /*var fileArray = ArrayList<String>()
 
        // this.fileList.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
@@ -173,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             fileList.adapter = listAdapater
 
         }
-
+*/
         this.fileList.isLongClickable = true
 
         this.fileList.onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
@@ -182,6 +174,6 @@ class MainActivity : AppCompatActivity() {
             parent.setSelection(position)
 
             true
-        }*/
+        }
     }
 }

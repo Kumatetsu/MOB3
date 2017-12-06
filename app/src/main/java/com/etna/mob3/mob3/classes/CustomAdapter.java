@@ -6,6 +6,7 @@ package com.etna.mob3.mob3.classes;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter {
 
-    private ArrayList dataSet;
+    private ArrayList<DataModel> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -30,10 +31,21 @@ public class CustomAdapter extends ArrayAdapter {
 
     public CustomAdapter(ArrayList data, Context context) {
         super(context, R.layout.row_item, data);
+
         this.dataSet = data;
         this.mContext = context;
 
     }
+
+    public void showCheckbox() {
+        Log.d("show ", "show checkbox");
+
+        for (DataModel item: this.dataSet) {
+            item.isCheckVisible = true;
+        }
+
+    }
+
     @Override
     public int getCount() {
         return dataSet.size();
@@ -56,7 +68,7 @@ public class CustomAdapter extends ArrayAdapter {
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
             viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
-            result=convertView;
+            result = convertView;
             convertView.setTag(viewHolder);
 
         } else {
@@ -66,10 +78,15 @@ public class CustomAdapter extends ArrayAdapter {
 
         DataModel item = getItem(position);
 
-
         viewHolder.txtName.setText(item.name);
         viewHolder.checkBox.setChecked(item.checked);
 
+        if (item.isCheckVisible == false) {
+            viewHolder.checkBox.setVisibility(View.INVISIBLE);
+        }
+        else {
+            viewHolder.checkBox.setVisibility(View.VISIBLE);
+        }
 
         return result;
     }
