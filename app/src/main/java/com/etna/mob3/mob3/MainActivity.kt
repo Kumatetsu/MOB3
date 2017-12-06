@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         downloadButton.setOnClickListener {
             downloadButtonPressed()
         }
+        modifyButton.setOnClickListener {
+            modifyButtonPressed()
+        }
 
         fileList.setOnItemClickListener { parent, view, position: Int, id ->
             val fileName = fileList.getItemAtPosition(position) as String
@@ -53,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("download","download button pressed")
         showFileChooser()
         this.showCheckbox()
+    }
+
+    private fun modifyButtonPressed() {
+        showCheckbox()
     }
 
     private fun showCheckbox() {
