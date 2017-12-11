@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.etna.mob3.mob3.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter {
@@ -37,6 +38,24 @@ public class CustomAdapter extends ArrayAdapter {
 
     }
 
+    private void removeFile(String path) {
+        Log.d("Remove file", "remove " + path);
+
+        File file = new File(path);
+        file.delete();
+
+        for (int i = 0; i < dataSet.size(); i++) {
+
+            if (dataSet.get(i).path == path) {
+                dataSet.remove(i);
+                Log.d("Remove file", "at " + path);
+                this.notifyDataSetChanged();
+            }
+
+        }
+
+    }
+
     public void showCheckbox() {
         Log.d("show ", "show checkbox");
 
@@ -53,6 +72,20 @@ public class CustomAdapter extends ArrayAdapter {
             item.isCheckVisible = false;
         }
 
+        removeSelectedFiles();
+    }
+
+    public void removeSelectedFiles() {
+
+        for (DataModel item: this.dataSet) {
+            if (item.checked) {
+                Log.d("removing", "remove ->" + item.path);
+                removeFile(item.path);
+            }
+        }
+
+        this.notifyDataSetChanged();
+
     }
 
     @Override
@@ -62,6 +95,8 @@ public class CustomAdapter extends ArrayAdapter {
 
     @Override
     public DataModel getItem(int position) {
+        Log.d("get view", "get item");
+
         return (DataModel) dataSet.get(position);
     }
 
@@ -71,6 +106,9 @@ public class CustomAdapter extends ArrayAdapter {
         ViewHolder viewHolder;
         final View result;
 
+        Log.d("get view", "get view");
+
+        // Si la vue n'existe pas encore on la créé
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item, parent, false);
@@ -80,12 +118,22 @@ public class CustomAdapter extends ArrayAdapter {
             result = convertView;
             convertView.setTag(viewHolder);
 
-        } else {
+        }
+        // Sinon on la récupère
+        else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            result = convertView;
         }
 
+        // l'item selectionné
         DataModel item = getItem(position);
+
+        // si la checkbox est cochée on supprime le fichier
+        if (viewHolder.checkBox.isChecked()) {
+            //item.checked = true;
+            removeFile(item.path);
+            Log.d("checked", "checked"+ item.path);
+        }
 
         viewHolder.txtName.setText(item.name);
         viewHolder.checkBox.setChecked(item.checked);
@@ -99,4 +147,5 @@ public class CustomAdapter extends ArrayAdapter {
 
         return result;
     }
+
 }
