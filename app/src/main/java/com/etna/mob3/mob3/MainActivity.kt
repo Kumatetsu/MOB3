@@ -59,7 +59,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun modifyButtonPressed() {
-        showCheckbox()
+
+        if (this.modifyButton.isActivated == false) {
+            this.modifyButton.isActivated = true
+            this.modifyButton.text = "Ok"
+            showCheckbox()
+        }
+        else {
+            this.modifyButton.isActivated = false
+            this.modifyButton.text = "Supprimer"
+            hideCheckbox()
+        }
+
+    }
+
+    private fun hideCheckbox() {
+        adapter!!.hideCheckbox()
+        adapter!!.notifyDataSetChanged()
     }
 
     private fun showCheckbox() {
@@ -150,29 +166,13 @@ class MainActivity : AppCompatActivity() {
         adapter = CustomAdapter(dataModels, applicationContext)
 
         File(APP_DIR).walkTopDown().forEach {
-            dataModels.add(DataModel(it.name, false, false))
+            dataModels.add(DataModel(it.name, it.path, false, false))
         }
 
         if (dataModels.size > 0) {
             this.fileList.setAdapter(adapter)
         }
 
-        /*var fileArray = ArrayList<String>()
-
-       // this.fileList.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
-
-        File(APP_DIR).walkTopDown().forEach {
-            fileArray.add(it.name)
-        }
-
-        if (fileArray.size > 0) {
-
-            var listAdapater = ArrayAdapter(this, android.R.layout.simple_list_item_1, fileArray)
-
-            fileList.adapter = listAdapater
-
-        }
-*/
         this.fileList.isLongClickable = true
 
         this.fileList.onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->

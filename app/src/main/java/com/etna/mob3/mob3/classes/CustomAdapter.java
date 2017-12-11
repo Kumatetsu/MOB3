@@ -46,6 +46,15 @@ public class CustomAdapter extends ArrayAdapter {
 
     }
 
+    public void hideCheckbox() {
+        Log.d("hide ", "hide checkbox");
+
+        for (DataModel item: this.dataSet) {
+            item.isCheckVisible = false;
+        }
+
+    }
+
     @Override
     public int getCount() {
         return dataSet.size();

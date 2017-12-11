@@ -6,12 +6,14 @@ package com.etna.mob3.mob3.classes;
 
 public class DataModel {
 
-    public String name;
+    String name;
+    String path;
     boolean checked;
     boolean isCheckVisible;
 
-    public DataModel(String name, boolean checked, boolean checkVisibility) {
+    public DataModel(String name, String path, boolean checked, boolean checkVisibility) {
         this.name = name;
+        this.path = path;
         this.checked = checked;
         this.isCheckVisible = checkVisibility;
 
