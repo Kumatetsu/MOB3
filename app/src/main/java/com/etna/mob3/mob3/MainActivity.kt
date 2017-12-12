@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.etna.mob3.mob3.classes.FileDatas
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
@@ -39,7 +40,9 @@ class MainActivity : AppCompatActivity() {
             val fileName = fileList.getItemAtPosition(position) as String
             val selectedFile : File = File(APP_DIR + fileName)
 
-            var parsing_result = Tools.parseFile(selectedFile)
+            val parsing_result: FileDatas = Tools.parseFile(selectedFile)
+
+            Log.d("test object", parsing_result.air_temp_max.toString())
             //val intent = Intent(this, MeteoInfoActivity::class.java)
             //startActivity(intent);
         }
