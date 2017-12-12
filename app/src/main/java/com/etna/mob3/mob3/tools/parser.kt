@@ -24,9 +24,13 @@ object Tools {
     }
 
     fun parseFile (file: File): String {
-        val datas = FileDatas()
-        var file_infos = file.readLines()
-        var air_temp = ArrayList<Float>()
+        val datas          = FileDatas()
+        var file_infos     = file.readLines()
+        var air_temp       = ArrayList<Float>()
+        var rel_humidity   = ArrayList<Float>()
+        var air_pressure   = ArrayList<Float>()
+        var wind_speed     = ArrayList<Float>()
+        var wind_direction = ArrayList<Float>()
 
         file_infos = file_infos.drop(2)
 
@@ -39,11 +43,46 @@ object Tools {
                 air_temp.add("0".toFloat())
             }
 
+            if ("" != parsedLine[35].trim()) {
+                rel_humidity.add(parsedLine[35].toFloat())
+            } else {
+                rel_humidity.add("0".toFloat())
+            }
+
+            if ("" != parsedLine[38].trim()) {
+                air_pressure.add(parsedLine[38].toFloat())
+            } else {
+                air_pressure.add("0".toFloat())
+            }
+
+            if ("" != parsedLine[3].trim()) {
+                wind_speed.add(parsedLine[3].toFloat())
+            } else {
+                wind_speed.add("0".toFloat())
+            }
+
+            if ("" != parsedLine[9].trim()) {
+                wind_direction.add(parsedLine[9].toFloat())
+            } else {
+                wind_direction.add("0".toFloat())
+            }
 
         }
 
         Log.d("air_temp length", air_temp.size.toString())
         Log.d("air_temp value", air_temp.toString())
+
+        Log.d("rel_humi length", rel_humidity.size.toString())
+        Log.d("rel_humi value", rel_humidity.toString())
+
+        Log.d("air_pressure length", air_pressure.size.toString())
+        Log.d("air_pressure value", air_pressure.toString())
+
+        Log.d("wind_speed length", wind_speed.size.toString())
+        Log.d("wind_speed value", wind_speed.toString())
+
+        Log.d("wind_direction length", wind_direction.size.toString())
+        Log.d("wind_direction value", wind_direction.toString())
 
 //        file.forEachLine {
 //            parsed_file.plus(it.split("\t"))
