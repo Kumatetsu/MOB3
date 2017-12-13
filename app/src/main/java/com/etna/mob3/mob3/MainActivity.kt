@@ -8,15 +8,19 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
+import android.widget.AdapterView
 import android.widget.Toast
+import com.etna.mob3.mob3.classes.CustomAdapter
+import com.etna.mob3.mob3.classes.DataModel
+import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
-import com.etna.mob3.mob3.tools.Tools
-import java.io.ObjectInput
+
 
 class MainActivity : AppCompatActivity() {
+
+    private var adapter: CustomAdapter? = null
 
     private val READ_REQUEST_CODE: Int = 42
     private val FILE_SELECT_CODE: Int = 1
@@ -34,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         downloadButton.setOnClickListener {
             downloadButtonPressed()
         }
+        modifyButton.setOnClickListener {
+            modifyButtonPressed()
+        }
 
         fileList.setOnItemClickListener { parent, view, position: Int, id ->
             val fileName = fileList.getItemAtPosition(position) as String
@@ -47,8 +54,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun downloadButtonPressed() {
         Log.d("download","download button pressed")
-
         showFileChooser()
+        this.showCheckbox()
+    }
+
+    private fun modifyButtonPressed() {
+
+        if (this.modifyButton.isActivated == false) {
+            this.modifyButton.isActivated = true
+            this.modifyButton.text = "Ok"
+            showCheckbox()
+        }
+        else {
+            this.modifyButton.isActivated = false
+            this.modifyButton.text = "Supprimer"
+            hideCheckbox()
+        }
+
+    }
+
+    private fun hideCheckbox() {
+        adapter!!.hideCheckbox()
+        adapter!!.notifyDataSetChanged()
+    }
+
+    private fun showCheckbox() {
+        adapter!!.showCheckbox()
+        adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         var dl_file: File
         var cp_file: File
         super.onActivityResult(requestCode, resultCode, data)
+
         if (data == null) {
             Log.d("Info", "Intent is null, no file selected")
         } else {
@@ -129,21 +162,25 @@ class MainActivity : AppCompatActivity() {
 
     fun fillList() {
 
-        var fileArray = ArrayList<String>()
-
-        // TODO replace pathname with the APP_DIR
+        var dataModels: ArrayList<DataModel> = ArrayList()
+        adapter = CustomAdapter(dataModels, applicationContext)
 
         File(APP_DIR).walkTopDown().forEach {
-            fileArray.add(it.name)
+            dataModels.add(DataModel(it.name, it.path, false, false))
         }
 
-        if (fileArray.size > 0) {
-
-            var listAdapater = ArrayAdapter(this, android.R.layout.simple_list_item_1, fileArray)
-
-            fileList.adapter = listAdapater
-
+        if (dataModels.size > 0) {
+            this.fileList.setAdapter(adapter)
         }
 
+        this.fileList.isLongClickable = true
+
+        this.fileList.onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
+            Log.d("press", "long press")
+
+            parent.setSelection(position)
+
+            true
+        }
     }
 }
