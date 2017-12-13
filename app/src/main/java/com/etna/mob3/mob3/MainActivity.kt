@@ -47,13 +47,16 @@ class MainActivity : AppCompatActivity() {
             val fileData: DataModel = fileList.getItemAtPosition(position) as DataModel
 
             Log.d("hello", "" + fileData.name)
-            
+
             val selectedFile : File = File(APP_DIR + fileData.name)
 
             val parsing_result: FileDatas = Tools.parseFile(selectedFile)
             Log.d("test object", parsing_result.air_temp_max.toString())
 
             val intent = Intent(this, MeteoInfoActivity::class.java)
+
+            intent.putExtra("file", selectedFile)
+
             startActivity(intent)
         }
     }
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun downloadButtonPressed() {
         Log.d("download","download button pressed")
         showFileChooser()
-       // this.showCheckbox()
+        // this.showCheckbox()
     }
 
     private fun modifyButtonPressed() {
