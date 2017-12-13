@@ -32,8 +32,8 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         load_Air_Temperature()
         load_Rel_Humidity()
-        /* load_Air_Pressure()
-         load_Local_WS_2min_mnm()*/
+        load_Air_Pressure()
+        load_Local_WS_2min_mnm()
 
     }
 
@@ -94,10 +94,57 @@ class MeteoInfoActivity : AppCompatActivity() {
     }
 
     private fun load_Air_Pressure() {
+        val air_pressure = TableRow(this)
 
+        var title = TextView(this)
+        var min = TextView(this)
+        var hour_min = TextView(this)
+        var avg_day = TextView(this)
+        var max = TextView(this)
+        var hour_max = TextView(this)
+
+        title.text = "AIR_PRESSURE"
+        min.text = this.fileData!!.air_pres_min.toString()
+        hour_min.text = this.fileData!!.air_hour_min
+        avg_day.text = this.fileData!!.air_pres_avg.toString()
+        max.text = this.fileData!!.air_pres_max.toString()
+        hour_max.text = this.fileData!!.air_hour_max.toString()
+
+        air_pressure.addView(title)
+        air_pressure.addView(min)
+        air_pressure.addView(hour_min)
+        air_pressure.addView(avg_day)
+        air_pressure.addView(max)
+        air_pressure.addView(hour_max)
+
+        this.data_table.addView(air_pressure)
     }
     private fun load_Local_WS_2min_mnm() {
 
+        val local_ws_2min = TableRow(this)
+
+        var title = TextView(this)
+        var min = TextView(this)
+        var hour_min = TextView(this)
+        var avg_day = TextView(this)
+        var max = TextView(this)
+        var hour_max = TextView(this)
+
+        title.text = "LOCAL_WS_2MIN_MNM"
+        min.text = this.fileData!!.wind_speed_min.toString()
+        hour_min.text = this.fileData!!.wind_speed_min.toString()
+        avg_day.text = this.fileData!!.wind_speed_avg.toString()
+        max.text = this.fileData!!.wind_speed_max.toString()
+        hour_max.text = this.fileData!!.wind_speed_max.toString()
+
+        local_ws_2min.addView(title)
+        local_ws_2min.addView(min)
+        local_ws_2min.addView(hour_min)
+        local_ws_2min.addView(avg_day)
+        local_ws_2min.addView(max)
+        local_ws_2min.addView(hour_max)
+
+        this.data_table.addView(local_ws_2min)
     }
 
 }
