@@ -12,11 +12,11 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.etna.mob3.mob3.classes.CustomAdapter
 import com.etna.mob3.mob3.classes.DataModel
+import com.etna.mob3.mob3.classes.FileDatas
 import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,19 +43,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         fileList.setOnItemClickListener { parent, view, position: Int, id ->
-            val fileName = fileList.getItemAtPosition(position) as String
-            val selectedFile : File = File(APP_DIR + fileName)
 
-            var parsing_result = Tools.parseFile(selectedFile)
-            //val intent = Intent(this, MeteoInfoActivity::class.java)
-            //startActivity(intent);
+            val fileData: DataModel = fileList.getItemAtPosition(position) as DataModel
+
+            Log.d("hello", "" + fileData.name)
+            
+            val selectedFile : File = File(APP_DIR + fileData.name)
+
+            val parsing_result: FileDatas = Tools.parseFile(selectedFile)
+            Log.d("test object", parsing_result.air_temp_max.toString())
+
+            val intent = Intent(this, MeteoInfoActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun downloadButtonPressed() {
         Log.d("download","download button pressed")
         showFileChooser()
-        this.showCheckbox()
+       // this.showCheckbox()
     }
 
     private fun modifyButtonPressed() {
