@@ -41,6 +41,8 @@
                 android:text="Heure du min" />
 
             <TextView
+                android:text="Moyenne de la journée" />
+            <TextView
                 android:text="Max" />
 
             <TextView

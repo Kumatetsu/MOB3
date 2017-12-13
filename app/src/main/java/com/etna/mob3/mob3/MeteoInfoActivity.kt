@@ -31,9 +31,9 @@ class MeteoInfoActivity : AppCompatActivity() {
     private fun fillDataTable() {
 
         load_Air_Temperature()
-       /* load_Rel_Humidity()
-        load_Air_Pressure()
-        load_Local_WS_2min_mnm()*/
+        load_Rel_Humidity()
+        /* load_Air_Pressure()
+         load_Local_WS_2min_mnm()*/
 
     }
 
@@ -46,25 +46,53 @@ class MeteoInfoActivity : AppCompatActivity() {
         var hour_min = TextView(this)
         var avg_day = TextView(this)
         var max = TextView(this)
+        var hour_max = TextView(this)
 
         title.text = "AIR_TEMPERATURE"
         min.text = this.fileData!!.air_temp_min.toString()
         hour_min.text = this.fileData!!.air_hour_min
         avg_day.text = this.fileData!!.air_temp_avg.toString()
         max.text = this.fileData!!.air_temp_max.toString()
+        hour_max.text = this.fileData!!.air_hour_max
 
         air_temperature.addView(title)
         air_temperature.addView(min)
         air_temperature.addView(hour_min)
         air_temperature.addView(avg_day)
         air_temperature.addView(max)
+        air_temperature.addView(hour_max)
 
         this.data_table.addView(air_temperature)
     }
 
     private fun load_Rel_Humidity() {
 
+        val rel_humidity = TableRow(this)
+
+        var title = TextView(this)
+        var min = TextView(this)
+        var hour_min = TextView(this)
+        var avg_day = TextView(this)
+        var max = TextView(this)
+        var hour_max = TextView(this)
+
+        title.text = "REL_HUMIDITY"
+        min.text = this.fileData!!.rel_humi_min.toString()
+        hour_min.text = this.fileData!!.rel_hour_min
+        avg_day.text = this.fileData!!.rel_humi_avg.toString()
+        max.text = this.fileData!!.rel_humi_max.toString()
+        hour_max.text = this.fileData!!.rel_hour_max
+
+        rel_humidity.addView(title)
+        rel_humidity.addView(min)
+        rel_humidity.addView(hour_min)
+        rel_humidity.addView(avg_day)
+        rel_humidity.addView(max)
+        rel_humidity.addView(hour_max)
+
+        this.data_table.addView(rel_humidity)
     }
+
     private fun load_Air_Pressure() {
 
     }
