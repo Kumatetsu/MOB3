@@ -37,21 +37,12 @@ public class CustomAdapter extends ArrayAdapter {
 
     }
 
-    private void removeFile(String path) {
-        Log.d("Remove file", "remove " + path);
+    public void removeFile(int position) {
+
+        String path = getItem(position).path;
 
         File file = new File(path);
         file.delete();
-
-        for (int i = 0; i < dataSet.size(); i++) {
-
-            if (dataSet.get(i).path == path) {
-                dataSet.remove(i);
-                Log.d("Remove file", "at " + path);
-                this.notifyDataSetChanged();
-            }
-
-        }
 
     }
 

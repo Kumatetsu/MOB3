@@ -1,6 +1,7 @@
 package com.etna.mob3.mob3
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
@@ -145,21 +146,51 @@ class MainActivity : AppCompatActivity() {
         adapter = CustomAdapter(dataModels, this)
 
         File(APP_DIR).walkTopDown().forEach {
-            dataModels.add(DataModel(it.name, it.path))
+            if (it.name != "Meteo") {
+                dataModels.add(DataModel(it.name, it.path))
+            }
         }
 
-        if (dataModels.size > 0) {
-            this.fileList.setAdapter(adapter)
-        }
-
+        //if (dataModels.size > 0) {
+        this.fileList.setAdapter(adapter)
+        
         this.fileList.isLongClickable = true
 
         this.fileList.onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
             Log.d("press", "long press")
 
-            parent.setSelection(position)
+            showDeleteAlert(position)
 
             true
         }
+    }
+
+    private fun showDeleteAlert(position: Int) {
+        val alertDialog = AlertDialog.Builder(this).create()
+
+        alertDialog.setTitle("Delete")
+        alertDialog.setMessage("Are you sure that you want to delete this file ?")
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", {
+            dialogInterface, i ->
+
+            this.removeFileAt(position)
+
+            Toast.makeText(applicationContext, "The file has been deleted", Toast.LENGTH_SHORT).show()
+        })
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", {
+            dialogInterface, i ->
+            Toast.makeText(applicationContext, "File not deleted", Toast.LENGTH_SHORT).show()
+        })
+
+        alertDialog.show()
+    }
+
+    fun removeFileAt(position: Int) {
+
+        this.adapter?.removeFile(position)
+
+        fillList()
     }
 }
