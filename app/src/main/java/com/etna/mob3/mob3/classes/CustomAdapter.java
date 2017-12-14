@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.etna.mob3.mob3.R;
@@ -28,7 +27,6 @@ public class CustomAdapter extends ArrayAdapter {
     // View lookup cache
     private static class ViewHolder {
         TextView txtName;
-        CheckBox checkBox;
     }
 
     public CustomAdapter(ArrayList data, Context context) {
@@ -57,38 +55,6 @@ public class CustomAdapter extends ArrayAdapter {
 
     }
 
-    public void showCheckbox() {
-        Log.d("show ", "show checkbox");
-
-        for (DataModel item: this.dataSet) {
-            item.isCheckVisible = true;
-        }
-
-    }
-
-    public void hideCheckbox() {
-        Log.d("hide ", "hide checkbox");
-
-        for (DataModel item: this.dataSet) {
-            item.isCheckVisible = false;
-        }
-
-        removeSelectedFiles();
-    }
-
-    public void removeSelectedFiles() {
-
-        for (DataModel item: this.dataSet) {
-            if (item.checked) {
-                Log.d("removing", "remove ->" + item.path);
-                removeFile(item.path);
-            }
-        }
-
-        this.notifyDataSetChanged();
-
-    }
-
     @Override
     public int getCount() {
         return dataSet.size();
@@ -114,11 +80,9 @@ public class CustomAdapter extends ArrayAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
-            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
             result = convertView;
             convertView.setTag(viewHolder);
-
         }
         // Sinon on la récupère
         else {
@@ -129,23 +93,8 @@ public class CustomAdapter extends ArrayAdapter {
         // l'item selectionné
         DataModel item = getItem(position);
 
-        // si la checkbox est cochée on supprime le fichier
-        if (viewHolder.checkBox.isChecked()) {
-            //item.checked = true;
-            removeFile(item.path);
-            Log.d("checked", "checked"+ item.path);
-        }
-
         viewHolder.txtName.setText(item.name);
         viewHolder.txtName.setTextColor(Color.WHITE);
-        viewHolder.checkBox.setChecked(item.checked);
-
-        if (item.isCheckVisible == false) {
-            viewHolder.checkBox.setVisibility(View.INVISIBLE);
-        }
-        else {
-            viewHolder.checkBox.setVisibility(View.VISIBLE);
-        }
 
         return result;
     }

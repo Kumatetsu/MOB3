@@ -30,15 +30,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-       // setSupportActionBar(toolbar)
 
         fillList()
 
         downloadButton.setOnClickListener {
             downloadButtonPressed()
-        }
-        modifyButton.setOnClickListener {
-            modifyButtonPressed()
         }
 
         fileList.setOnItemClickListener { parent, view, position: Int, id ->
@@ -64,31 +60,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("download","download button pressed")
         showFileChooser()
         // this.showCheckbox()
-    }
-
-    private fun modifyButtonPressed() {
-
-        if (this.modifyButton.isActivated == false) {
-            this.modifyButton.isActivated = true
-            this.modifyButton.text = "Ok"
-            showCheckbox()
-        }
-        else {
-            this.modifyButton.isActivated = false
-            this.modifyButton.text = "Supprimer"
-            hideCheckbox()
-        }
-
-    }
-
-    private fun hideCheckbox() {
-        adapter!!.hideCheckbox()
-        adapter!!.notifyDataSetChanged()
-    }
-
-    private fun showCheckbox() {
-        adapter!!.showCheckbox()
-        adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -171,10 +142,10 @@ class MainActivity : AppCompatActivity() {
     fun fillList() {
 
         var dataModels: ArrayList<DataModel> = ArrayList()
-        adapter = CustomAdapter(dataModels, applicationContext)
+        adapter = CustomAdapter(dataModels, this)
 
         File(APP_DIR).walkTopDown().forEach {
-            dataModels.add(DataModel(it.name, it.path, false, false))
+            dataModels.add(DataModel(it.name, it.path))
         }
 
         if (dataModels.size > 0) {
