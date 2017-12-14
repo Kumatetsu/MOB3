@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_column="@android:integer/config_mediumAnimTime"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.etna.mob3.mob3.MeteoInfoActivity">
 
     <TableLayout
@@ -15,6 +17,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/background_light"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:divider="@android:color/background_light"
+        android:dividerPadding="2px"
+        android:showDividers="beginning|middle|end"
         android:stretchColumns="*"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,6 +35,9 @@
             android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:divider="@android:color/background_light"
+            android:showDividers="beginning|middle|end"
             android:visibility="visible">
 
             <TextView android:text="Nom de l'analyse" />

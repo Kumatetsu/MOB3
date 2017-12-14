@@ -1,5 +1,6 @@
 package com.etna.mob3.mob3
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.TableRow
@@ -55,6 +56,13 @@ class MeteoInfoActivity : AppCompatActivity() {
         max.text = this.fileData!!.air_temp_max.toString()
         hour_max.text = this.fileData!!.air_hour_max
 
+        title.setTextColor(Color.WHITE)
+        avg_day.setTextColor(Color.WHITE)
+        hour_min.setTextColor(Color.WHITE)
+        hour_max.setTextColor(Color.WHITE)
+        max.setTextColor(Color.WHITE)
+        min.setTextColor(Color.WHITE)
+
         air_temperature.addView(title)
         air_temperature.addView(min)
         air_temperature.addView(hour_min)
@@ -83,6 +91,13 @@ class MeteoInfoActivity : AppCompatActivity() {
         max.text = this.fileData!!.rel_humi_max.toString()
         hour_max.text = this.fileData!!.rel_hour_max
 
+        title.setTextColor(Color.WHITE)
+        avg_day.setTextColor(Color.WHITE)
+        hour_min.setTextColor(Color.WHITE)
+        hour_max.setTextColor(Color.WHITE)
+        max.setTextColor(Color.WHITE)
+        min.setTextColor(Color.WHITE)
+
         rel_humidity.addView(title)
         rel_humidity.addView(min)
         rel_humidity.addView(hour_min)
@@ -105,10 +120,18 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         title.text = "AIR_PRESSURE"
         min.text = this.fileData!!.air_pres_min.toString()
+        avg_day.text = this.fileData!!.air_pres_min.toString()
         hour_min.text = this.fileData!!.air_hour_min
         avg_day.text = this.fileData!!.air_pres_avg.toString()
         max.text = this.fileData!!.air_pres_max.toString()
-        hour_max.text = this.fileData!!.air_hour_max.toString()
+        hour_max.text = this.fileData!!.air_hour_max
+
+        title.setTextColor(Color.WHITE)
+        avg_day.setTextColor(Color.WHITE)
+        hour_min.setTextColor(Color.WHITE)
+        hour_max.setTextColor(Color.WHITE)
+        max.setTextColor(Color.WHITE)
+        min.setTextColor(Color.WHITE)
 
         air_pressure.addView(title)
         air_pressure.addView(min)
@@ -119,6 +142,7 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         this.data_table.addView(air_pressure)
     }
+
     private fun load_Local_WS_2min_mnm() {
 
         val local_ws_2min = TableRow(this)
@@ -132,10 +156,17 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         title.text = "LOCAL_WS_2MIN_MNM"
         min.text = this.fileData!!.wind_speed_min.toString()
-        hour_min.text = this.fileData!!.wind_speed_min.toString()
+        hour_min.text = this.fileData!!.winds_hour_min
         avg_day.text = this.fileData!!.wind_speed_avg.toString()
         max.text = this.fileData!!.wind_speed_max.toString()
-        hour_max.text = this.fileData!!.wind_speed_max.toString()
+        hour_max.text = this.fileData!!.winds_hour_min
+
+        title.setTextColor(Color.WHITE)
+        avg_day.setTextColor(Color.WHITE)
+        hour_min.setTextColor(Color.WHITE)
+        hour_max.setTextColor(Color.WHITE)
+        max.setTextColor(Color.WHITE)
+        min.setTextColor(Color.WHITE)
 
         local_ws_2min.addView(title)
         local_ws_2min.addView(min)
