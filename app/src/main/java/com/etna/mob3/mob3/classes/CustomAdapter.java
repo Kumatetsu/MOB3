@@ -5,6 +5,7 @@ package com.etna.mob3.mob3.classes;
  */
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,6 +137,7 @@ public class CustomAdapter extends ArrayAdapter {
         }
 
         viewHolder.txtName.setText(item.name);
+        viewHolder.txtName.setTextColor(Color.WHITE);
         viewHolder.checkBox.setChecked(item.checked);
 
         if (item.isCheckVisible == false) {
