@@ -1,14 +1,41 @@
 package com.etna.mob3.mob3
 
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TableRow
 import android.widget.TextView
 import com.etna.mob3.mob3.classes.FileDatas
+import com.etna.mob3.mob3.classes.chartData
 import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_meteo_info.*
 import java.io.File
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import android.R.attr.entries
+import android.R.attr.entries
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+
+
+
+
+
+
+
+
+
+
+
 
 class MeteoInfoActivity : AppCompatActivity() {
 
@@ -27,6 +54,41 @@ class MeteoInfoActivity : AppCompatActivity() {
                 fillDataTable()
             }
         }
+
+        val chart = findViewById<View>(R.id.chart) as LineChart
+        val entries = ArrayList<Entry>()
+
+        entries.add(Entry(1.0F,10.00F))
+        entries.add(Entry(2.0F,12.00F))
+        entries.add(Entry(3.0F,17.00F))
+        entries.add(Entry(4.0F,19.00F))
+
+
+        val dataSet = LineDataSet(entries, "test")
+        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        val lineData = LineData(dataSet)
+        chart.setData(lineData)
+
+        chart.invalidate()
+
+        // the labels that should be drawn on the XAxis
+//        val quarters = arrayOf("Q1", "Q2", "Q3", "Q4")
+//
+//        val formatter = object : IAxisValueFormatter {
+//
+//            // we don't draw numbers, so no decimal digits needed
+//            val decimalDigits: Int
+//                get() = 0
+//
+//            override fun getFormattedValue(value: Float, axis: AxisBase): String {
+//                return quarters[value.toInt()]
+//            }
+//        }
+//
+//        val xAxis = chart.getXAxis()
+//        xAxis.setGranularity(1f) // minimum axis-step (interval) is 1
+//        xAxis.setValueFormatter(formatter)
+
     }
 
     private fun fillDataTable() {
