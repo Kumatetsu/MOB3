@@ -37,10 +37,11 @@ import com.etna.mob3.mob3.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomAdapterCharts extends ArrayAdapter {
 
-    private ArrayList<listChartData> dataSet;
+    private ArrayList<ListChartData> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -62,10 +63,10 @@ public class CustomAdapterCharts extends ArrayAdapter {
     }
 
     @Override
-    public listChartData getItem(int position) {
+    public ListChartData getItem(int position) {
         Log.d("get view", "get item");
 
-        return (listChartData) dataSet.get(position);
+        return (ListChartData) dataSet.get(position);
     }
 
     @Override
@@ -92,7 +93,7 @@ public class CustomAdapterCharts extends ArrayAdapter {
         }
 
         // l'item selectionné
-        listChartData item = getItem(position);
+        ListChartData item = getItem(position);
 
         viewHolder.txtName.setText(item.getName());
         viewHolder.txtName.setTextColor(Color.WHITE);
