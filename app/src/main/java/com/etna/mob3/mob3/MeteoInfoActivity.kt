@@ -1,22 +1,48 @@
 package com.etna.mob3.mob3
 
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TableRow
 import android.widget.TextView
-import com.etna.mob3.mob3.classes.FileDatas
 import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_meteo_info.*
 import java.io.File
+import com.github.mikephil.charting.charts.LineChart
+import android.R.attr.entries
+import android.R.attr.entries
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.widget.ListView
+import com.github.mikephil.charting.charts.PieRadarChartBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import android.widget.RelativeLayout
+import com.etna.mob3.mob3.classes.*
+import com.etna.mob3.mob3.tools.Charts
+import kotlinx.android.synthetic.main.content_main.*
+import java.io.UTFDataFormatException
+
 
 class MeteoInfoActivity : AppCompatActivity() {
 
     private var fileData: FileDatas? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meteo_info)
+        var file: File = intent.extras.get("file") as File
+        var adapter: CustomAdapterCharts? = null
 
         if (intent != null) {
             if (intent.extras != null) {
@@ -27,6 +53,33 @@ class MeteoInfoActivity : AppCompatActivity() {
                 fillDataTable()
             }
         }
+
+        var columns = file.readLines().get(1).split("\t")
+        columns = columns.drop(1)
+        var linview = findViewById<View>(R.id.linview) as ListView
+        var alldataview = findViewById<View>(R.id.alldataview) as ListView
+        var roseview = findViewById<View>(R.id.roseview) as ListView
+        var dataModels: ArrayList<listChartData> = ArrayList()
+        adapter = CustomAdapterCharts(dataModels, this)
+        var index = 1
+        columns.forEach {
+            dataModels.add(listChartData(it,index))
+            index ++
+        }
+
+        this.linview.setAdapter(adapter)
+        this.alldataview.setAdapter(adapter)
+        this.roseview.setAdapter(adapter)
+
+        linview.setOnItemClickListener { parent, view, position: Int, id ->
+
+            val selectedFile: listChartData = linview.getItemAtPosition(position) as listChartData
+            val intent = Intent(this, MeteoInfoActivity::class.java)
+            intent.putExtra("file", selectedFile)
+            startActivity(intent)
+        }
+
+
     }
 
     private fun fillDataTable() {

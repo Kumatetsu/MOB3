@@ -11,8 +11,8 @@
     <TableLayout
         android:id="@+id/data_table"
         android:layout_width="924dp"
-        android:layout_height="239dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="400dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -55,4 +55,79 @@
         </TableRow>
 
     </TableLayout>
+
+    <ListView
+        android:id="@+id/linview"
+        android:layout_width="256dp"
+        android:layout_height="253dp"
+        android:layout_marginBottom="94dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alldataview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearChart" />
+
+    <Button
+        android:id="@+id/LinearChart"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:text="LinearChart"
+        app:layout_constraintBottom_toTopOf="@+id/linview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/AllDatasChart" />
+
+    <Button
+        android:id="@+id/AllDatasChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="16dp"
+        android:text="AllDatasChart"
+        app:layout_constraintEnd_toStartOf="@+id/windroseChart"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/LinearChart"
+        app:layout_constraintTop_toTopOf="@+id/windroseChart" />
+
+    <Button
+        android:id="@+id/windroseChart"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginTop="28dp"
+        android:text="windroseChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/data_table" />
+
+    <ListView
+        android:id="@+id/alldataview"
+        android:layout_width="214dp"
+        android:layout_height="247dp"
+        android:layout_marginBottom="112dp"
+        android:layout_marginEnd="432dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AllDatasChart" />
+
+    <ListView
+        android:id="@+id/roseview"
+        android:layout_width="259dp"
+        android:layout_height="251dp"
+        android:layout_marginBottom="121dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/windroseChart" />
+
+
 </android.support.constraint.ConstraintLayout>
