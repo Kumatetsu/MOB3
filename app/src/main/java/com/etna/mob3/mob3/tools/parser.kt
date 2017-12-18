@@ -101,11 +101,13 @@ object Tools {
                 wind_speed.max()!!.toInt(),
                 wind_speed.min()!!.toInt(),
                 wind_speed.average().toInt(),
+                wind_speed,
                 time[wind_speed.indexOf(wind_speed.max()!!)],
                 time[wind_speed.indexOf(wind_speed.min()!!)],
                 wind_direction.max()!!.toInt(),
                 wind_direction.min()!!.toInt(),
                 wind_direction.average().toInt(),
+                wind_direction,
                 time[wind_direction.indexOf(wind_direction.max()!!)],
                 time[wind_direction.indexOf(wind_direction.min()!!)]
 

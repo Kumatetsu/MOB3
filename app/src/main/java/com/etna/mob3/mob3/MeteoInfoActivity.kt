@@ -65,6 +65,7 @@ class MeteoInfoActivity : AppCompatActivity() {
 
             intent.putExtra("index", index)
             intent.putExtra("name", name)
+            intent.putExtra("file", file)
 
             startActivity(intent)
         }
