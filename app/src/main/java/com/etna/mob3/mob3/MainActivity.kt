@@ -46,9 +46,6 @@ class MainActivity : AppCompatActivity() {
 
             val selectedFile : File = File(APP_DIR + fileData.name)
 
-            val parsing_result: FileDatas = Tools.parseFile(selectedFile)
-            Log.d("test object", parsing_result.air_temp_max.toString())
-
             val intent = Intent(this, MeteoInfoActivity::class.java)
 
             intent.putExtra("file", selectedFile)
