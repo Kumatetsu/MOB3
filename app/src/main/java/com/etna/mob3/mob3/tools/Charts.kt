@@ -36,4 +36,26 @@ object Charts {
 
         rl.addView(chart, 2000,600)
     }
+
+    fun defineEntry(datas: ArrayList<Float>, entry: ArrayList<Entry>): ArrayList<Entry>{
+        var i = 0F
+
+        datas.forEach{
+            entry.add(Entry(i, it))
+            i ++
+        }
+
+        return entry
+    }
+
+    fun definedEntry(datas: Float, entry: ArrayList<Entry>) : ArrayList<Entry> {
+        var i = 0F
+
+        while (i < 24) {
+            entry.add(Entry(i, datas))
+            i ++
+        }
+
+        return entry
+    }
 }
