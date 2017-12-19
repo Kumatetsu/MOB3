@@ -69,11 +69,18 @@ class WebView : AppCompatActivity() {
             var directionValue: Double = windDirectionList.get(i).toDouble()
 
             if (directionValue > 0) {
-                directionValue = (windDirectionList.get(i).toDouble() / 16)
-                val directionName: String = directionMap.getValue(directionValue)
+                Log.d("direction", ""+ directionValue)
 
-                val newVal = finalMap.getValue(directionName) + 1
-                finalMap.set(directionName, newVal)
+                directionValue = (360 / windDirectionList.get(i)).toDouble()
+
+                Log.d("direction value", "" + directionValue)
+                if (directionMap.containsKey(directionValue)) {
+                    val directionName: String = directionMap.getValue(directionValue)
+
+                    val newVal = finalMap.getValue(directionName) + 1
+                    finalMap.set(directionName, newVal)
+                }
+
             }
 
         }
@@ -132,28 +139,26 @@ class WebView : AppCompatActivity() {
                 "\n" +
                 "   \n" +
                 "\t\tseries: [{\n" +
-                "\"data\": [\n" +
-                "\t\t\t\t\t[\"N\", 12],\n" +
-                "\t\t\t\t\t[\"NNE\", 12],\n" +
-                "\t\t\t\t\t[\"NE\", 12],\n" +
-                "\t\t\t\t\t[\"ENE\", 12],\n" +
-                "\t\t\t\t\t[\"E\", 12],\n" +
-                "\t\t\t\t\t[\"ESE\", 12],\n" +
-                "\t\t\t\t\t[\"SE\", 12],\n" +
-                "\t\t\t\t\t[\"SSE\", 12],\n" +
-                "\t\t\t\t\t[\"S\", 12],\n" +
-                "\t\t\t\t\t[\"SSW\", 12],\n" +
-                "\t\t\t\t\t[\"SW\", 12],\n" +
-                "\t\t\t\t\t[\"WSW\", 12],\n" +
-                "\t\t\t\t\t[\"W\", 12],\n" +
-                "\t\t\t\t\t[\"WNW\", 12],\n" +
-                "\t\t\t\t\t[\"NW\", 12],\n" +
-                "\t\t\t\t\t[\"NNW\", 12],\n" +
+                "\t\t\t\t\"data\": [\n" +
+                "\t\t\t\t\t[\"N\", " + finalMap.getValue("N") + "],\n" +
+                "\t\t\t\t\t[\"NE\", " + finalMap.getValue("NE") + "],\n" +
+                "\t\t\t\t\t[\"ENE\", " + finalMap.getValue("ENE") + "],\n" +
+                "\t\t\t\t\t[\"ESE\", " + finalMap.getValue("ESE") + "],\n" +
+                "\t\t\t\t\t[\"SE\", " + finalMap.getValue("SE") + "],\n" +
+                "\t\t\t\t\t[\"SSE\", " + finalMap.getValue("SSE") + "],\n" +
+                "\t\t\t\t\t[\"S\", " + finalMap.getValue("S") + "],\n" +
+                "\t\t\t\t\t[\"SSW\", " + finalMap.getValue("SSW") + "],\n" +
+                "\t\t\t\t\t[\"SW\", " + finalMap.getValue("SW") + "],\n" +
+                "\t\t\t\t\t[\"WSW\", " + finalMap.getValue("WSW") + "],\n" +
+                "\t\t\t\t\t[\"W\", " + finalMap.getValue("W") + "],\n" +
+                "\t\t\t\t\t[\"WNW\", " + finalMap.getValue("WNW") + "],\n" +
+                "\t\t\t\t\t[\"NW\", " + finalMap.getValue("NW") + "],\n" +
+                "\t\t\t\t\t[\"NNW\", " + finalMap.getValue("NNW") + "],\n" +
+                "\n" +
                 "\t\t\t\t],\n" +
                 "\t\t\t\t\"type\": \"column\",\n" +
-                "\t\t\t\t\"name\": \"<40G\"\n" +
-                "\t\t\t}\n" +
-                "],\n" +
+                "\t\t\t\t\"name\": \">500G\"\n" +
+                "\t\t\t}],\n" +
                 "    plotOptions: {\n" +
                 "        series: {\n" +
                 "            stacking: 'normal',\n" +
@@ -162,7 +167,7 @@ class WebView : AppCompatActivity() {
                 "            pointPlacement: 'on'\n" +
                 "        }\n" +
                 "    }\n" +
-                "});\n" +
+                "});" +
                 "</script>"
 
         this.webview.loadData(html, "text/html; charset=utf-8", "UTF-8")
