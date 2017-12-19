@@ -20,14 +20,17 @@ data class FileDatas(
         val air_pres_avg: Int,
         val airp_hour_min: String,
         val airp_hour_max: String,
-        val wind_dir_max: Int,
-        val wind_dir_min: Int,
-        val wind_dir_avg: Int,
-        val windd_hour_min: String,
-        val windd_hour_max: String,
         val wind_speed_max: Int,
         val wind_speed_min: Int,
         val wind_speed_avg: Int,
+        val wind_speed_list: ArrayList<Int>,
         val winds_hour_min: String,
-        val winds_hour_max: String
+        val winds_hour_max: String,
+        val wind_dir_max: Int,
+        val wind_dir_min: Int,
+        val wind_dir_avg: Int,
+        val wind_dir_list: ArrayList<Int>,
+        val windd_hour_min: String,
+        val windd_hour_max: String
+
 )

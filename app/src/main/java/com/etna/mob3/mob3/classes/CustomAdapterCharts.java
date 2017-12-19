@@ -16,32 +16,15 @@ import android.widget.TextView;
 
 import com.etna.mob3.mob3.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by jeremydebelleix on 06/12/2017.
  */
 
-import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import com.etna.mob3.mob3.R;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 public class CustomAdapterCharts extends ArrayAdapter {
 
-    private ArrayList<ListChartData> dataSet;
+    private ArrayList<ListColumn> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -63,10 +46,10 @@ public class CustomAdapterCharts extends ArrayAdapter {
     }
 
     @Override
-    public ListChartData getItem(int position) {
+    public ListColumn getItem(int position) {
         Log.d("get view", "get item");
 
-        return (ListChartData) dataSet.get(position);
+        return (ListColumn) dataSet.get(position);
     }
 
     @Override
@@ -93,7 +76,7 @@ public class CustomAdapterCharts extends ArrayAdapter {
         }
 
         // l'item selectionné
-        ListChartData item = getItem(position);
+        ListColumn item = getItem(position);
 
         viewHolder.txtName.setText(item.getName());
         viewHolder.txtName.setTextColor(Color.WHITE);

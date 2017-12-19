@@ -1,17 +1,16 @@
 package com.etna.mob3.mob3.tools
 
 import android.util.Log
-import com.etna.mob3.mob3.R
 import com.etna.mob3.mob3.classes.FileDatas
 import com.etna.mob3.mob3.tools.Charts.defineEntry
 import com.etna.mob3.mob3.tools.Charts.definedEntry
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import java.io.File
 import java.util.*
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.data.LineData
 
 
 
@@ -113,11 +112,13 @@ object Tools {
                 wind_speed.max()!!.toInt(),
                 wind_speed.min()!!.toInt(),
                 wind_speed.average().toInt(),
+                wind_speed,
                 time[wind_speed.indexOf(wind_speed.max()!!)],
                 time[wind_speed.indexOf(wind_speed.min()!!)],
                 wind_direction.max()!!.toInt(),
                 wind_direction.min()!!.toInt(),
                 wind_direction.average().toInt(),
+                wind_direction,
                 time[wind_direction.indexOf(wind_direction.max()!!)],
                 time[wind_direction.indexOf(wind_direction.min()!!)]
 
