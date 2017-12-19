@@ -15,7 +15,6 @@ import com.etna.mob3.mob3.tools.Tools
 import kotlinx.android.synthetic.main.activity_meteo_info.*
 import java.io.File
 
-
 class MeteoInfoActivity : AppCompatActivity() {
 
     private var fileData: FileDatas? = null
@@ -57,13 +56,16 @@ class MeteoInfoActivity : AppCompatActivity() {
         linview.setOnItemClickListener { parent, view, position: Int, id ->
 
             val selectedLine: listChartData = linview.getItemAtPosition(position) as listChartData
-            val intent = Intent(this, MeteoInfoActivity::class.java)
+          //  val intent = Intent(this, MeteoInfoActivity::class.java)
+
+            val intent = Intent(this, WebView::class.java)
 
             val index = selectedLine.index
             var name = selectedLine.name
 
             intent.putExtra("index", index)
             intent.putExtra("name", name)
+            intent.putExtra("file", file)
 
             startActivity(intent)
         }
