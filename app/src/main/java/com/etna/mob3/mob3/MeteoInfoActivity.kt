@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.ListView
 import android.widget.TableRow
@@ -59,6 +60,22 @@ class MeteoInfoActivity : AppCompatActivity() {
             val selectedLine: ListColumn = linview.getItemAtPosition(position) as ListColumn
             val intent = Intent(this, LinearChartActivity::class.java)
             val index = selectedLine.index
+            Log.d("TEST", index.toString())
+            var name = selectedLine.name
+
+            intent.putExtra("index", index)
+            intent.putExtra("name", name)
+            intent.putExtra("data", file)
+
+            startActivity(intent)
+        }
+
+        alldataview.setOnItemClickListener { parent, view, position: Int, id ->
+
+            val selectedLine: ListColumn = linview.getItemAtPosition(position) as ListColumn
+            val intent = Intent(this, AllDataChartsActivity::class.java)
+            val index = selectedLine.index
+            Log.d("index", index.toString())
             var name = selectedLine.name
 
             intent.putExtra("index", index)
