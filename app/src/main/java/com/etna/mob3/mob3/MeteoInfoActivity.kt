@@ -70,6 +70,21 @@ class MeteoInfoActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        alldataview.setOnItemClickListener { parent, view, position: Int, id ->
+
+            val selectedLine: ListColumn = linview.getItemAtPosition(position) as ListColumn
+            val intent = Intent(this, AllDataChartsActivity::class.java)
+            val index = selectedLine.index
+            Log.d("index", index.toString())
+            var name = selectedLine.name
+
+            intent.putExtra("index", index)
+            intent.putExtra("name", name)
+            intent.putExtra("data", file)
+
+            startActivity(intent)
+        }
+
     }
 
     private fun fillDataTable() {

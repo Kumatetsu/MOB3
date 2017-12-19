@@ -30,7 +30,7 @@
         <activity android:name=".MeteoInfoActivity"></activity>
         <activity android:name=".LinearChartActivity"/>
         <activity android:name=".WebView"/>
-
+        <activity android:name=".AllDataChartsActivity"/>
     </application>
 
 </manifest>

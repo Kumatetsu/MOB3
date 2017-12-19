@@ -334,5 +334,31 @@ object Tools {
         return data
     }
 
+    fun parseForAllDatas(column: Int, file: File) : LineData {
+        var index: Int
+        var container = ArrayList<Float>()
+        var fileLines = file.readLines().drop(2)
+
+        fileLines.forEach{
+            var fileLine = it.split("\t")
+            if ("" != fileLine[column].trim()) {
+                container.add(fileLine[column].toFloat())
+            } else {
+                container.add(0F)
+            }
+        }
+
+        var ChartEntry = ArrayList<Entry>()
+
+        ChartEntry = defineEntry(container, ChartEntry)
+
+        val dataSet1 = LineDataSet( ChartEntry, "All Datas")
+//        dataSet1.setAxisDependency(YAxis.AxisDependency.LEFT)
+        dataSet1.setColor(123, 154)
+
+        val data = LineData(dataSet1)
+
+        return data
+    }
 
 }
