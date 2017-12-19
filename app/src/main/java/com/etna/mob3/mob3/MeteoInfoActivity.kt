@@ -10,10 +10,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import com.etna.mob3.mob3.classes.CustomAdapterCharts
 import com.etna.mob3.mob3.classes.FileDatas
-import com.etna.mob3.mob3.classes.ListChartData
+import com.etna.mob3.mob3.classes.ListColumn
 import com.etna.mob3.mob3.tools.Tools
-import com.etna.mob3.mob3.tools.Tools.parseForLinear
-import com.github.mikephil.charting.data.LineData
 import kotlinx.android.synthetic.main.activity_meteo_info.*
 import java.io.File
 
@@ -44,11 +42,11 @@ class MeteoInfoActivity : AppCompatActivity() {
         var linview = findViewById<View>(R.id.linview) as ListView
         var alldataview = findViewById<View>(R.id.alldataview) as ListView
         var roseview = findViewById<View>(R.id.roseview) as ListView
-        var dataModels: ArrayList<ListChartData> = ArrayList()
+        var dataModels: ArrayList<ListColumn> = ArrayList()
         adapter = CustomAdapterCharts(dataModels, this)
         var index = 1
         columns.forEach {
-            dataModels.add(ListChartData(it, index))
+            dataModels.add(ListColumn(it, index))
             index++
         }
 
@@ -58,7 +56,7 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         linview.setOnItemClickListener { parent, view, position: Int, id ->
 
-            val selectedLine: ListChartData = linview.getItemAtPosition(position) as ListChartData
+            val selectedLine: ListColumn = linview.getItemAtPosition(position) as ListColumn
             val intent = Intent(this, LinearChartActivity::class.java)
             val index = selectedLine.index
             var name = selectedLine.name
