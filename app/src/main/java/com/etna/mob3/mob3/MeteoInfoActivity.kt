@@ -85,6 +85,24 @@ class MeteoInfoActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        roseview.setOnItemClickListener { parent, view, position: Int, id ->
+
+            val selectedLine: ListColumn = roseview.getItemAtPosition(position) as ListColumn
+            //  val intent = Intent(this, MeteoInfoActivity::class.java)
+
+            val intent = Intent(this, WebView::class.java)
+
+            val index = selectedLine.index
+            var name = selectedLine.name
+
+            intent.putExtra("index", index)
+            intent.putExtra("name", name)
+            intent.putExtra("file", file)
+
+            startActivity(intent)
+        }
+
+
     }
 
     private fun fillDataTable() {
