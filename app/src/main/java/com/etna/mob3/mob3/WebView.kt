@@ -24,24 +24,6 @@ class WebView : AppCompatActivity() {
         val file: File = intent.extras.get("file") as File
         val fileDatas = Tools.parseFile(file)
 
-        val directionMap: HashMap<Double, String> = hashMapOf(
-                11.25 to "N",
-                33.75 to "NNE",
-                56.25 to "NE",
-                78.75 to "ENE",
-                101.25 to "E",
-                123.75 to "ESE",
-                146.25 to "SE",
-                168.75 to "SSE",
-                191.25 to "S",
-                213.75 to "SSW",
-                236.25 to "SW",
-                258.75 to "WSW",
-                281.25 to "W",
-                303.75 to "WNW",
-                326.25 to "NW",
-                348.75 to "NNW")
-
         val finalMap: HashMap<String, Int> = hashMapOf(
                 "N" to 0,
                 "NNE" to 0,
@@ -60,29 +42,28 @@ class WebView : AppCompatActivity() {
                 "NW" to 0,
                 "NNW" to 0)
 
+        var map: HashMap<Int, Int> = hashMapOf()
+
         var windSpeedList = fileDatas.wind_speed_list
         var windDirectionList = fileDatas.wind_dir_list
 
-        Log.d("list size", "" + windDirectionList.size)
         for (i in 0..windDirectionList.size-1) {
 
-            var directionValue: Double = windDirectionList.get(i).toDouble()
+            val direction = windDirectionList[i]
+            Log.d("direction", "" + direction)
 
-            if (directionValue > 0) {
-                Log.d("direction", ""+ directionValue)
+            if (windSpeedList[i] > 0) {
+                var directionName = convertDirection(direction)
 
-                directionValue = (360 / windDirectionList.get(i)).toDouble()
+                Log.d("direction name", "" + directionName)
 
-                Log.d("direction value", "" + directionValue)
-                if (directionMap.containsKey(directionValue)) {
-                    val directionName: String = directionMap.getValue(directionValue)
-
+                // Increment direction
+                if (finalMap.containsKey(directionName)) {
+                    Log.d("direction contains", "" + directionName)
                     val newVal = finalMap.getValue(directionName) + 1
                     finalMap.set(directionName, newVal)
                 }
-
             }
-
         }
 
         val html =  "<script src=\"https://code.highcharts.com/highcharts.js\"></script>\n" +
@@ -174,4 +155,30 @@ class WebView : AppCompatActivity() {
 
     }
 
+    fun convertDirection(direction: Int): String {
+
+        when (direction) {
+            in 348.75..11.25 -> return "N"
+            in 11.25..33.75 -> return "NNE"
+            in 33.75..56.25 -> return "NE"
+            in 56.25..78.75 -> return "ENE"
+            in 78.75..101.25 -> return "E"
+            in 101.25..123.75 -> return "ESE"
+            in 123.75..146.25 -> return "SE"
+            in 146.25..168.75 -> return "SSE"
+            in 168.75..191.25 -> return "S"
+            in 191.25..213.75 -> return "SSW"
+            in 213.75..236.25 -> return "SW"
+            in 236.25..258.75 -> return "WSW"
+            in 258.75..281.25 -> return "W"
+            in 281.25..303.75 -> return "WNW"
+            in 303.75..326.25 -> return "NW"
+            in 326.25..348.75 -> return "NNW"
+
+            else -> { // Note the block
+                return "None"
+            }
+        }
+
+    }
 }
