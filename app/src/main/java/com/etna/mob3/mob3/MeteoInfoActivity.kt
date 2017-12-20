@@ -42,7 +42,6 @@ class MeteoInfoActivity : AppCompatActivity() {
         columns = columns.drop(1)
         var linview = findViewById<View>(R.id.linview) as ListView
         var alldataview = findViewById<View>(R.id.alldataview) as ListView
-        var roseview = findViewById<View>(R.id.roseview) as ListView
         var dataModels: ArrayList<ListColumn> = ArrayList()
         adapter = CustomAdapterCharts(dataModels, this)
         var index = 1
@@ -53,7 +52,6 @@ class MeteoInfoActivity : AppCompatActivity() {
 
         this.linview.setAdapter(adapter)
         this.alldataview.setAdapter(adapter)
-        this.roseview.setAdapter(adapter)
 
         linview.setOnItemClickListener { parent, view, position: Int, id ->
 
@@ -85,18 +83,10 @@ class MeteoInfoActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        roseview.setOnItemClickListener { parent, view, position: Int, id ->
-
-            val selectedLine: ListColumn = roseview.getItemAtPosition(position) as ListColumn
-            //  val intent = Intent(this, MeteoInfoActivity::class.java)
+        this.windroseChart.setOnClickListener {
 
             val intent = Intent(this, WebView::class.java)
 
-            val index = selectedLine.index
-            var name = selectedLine.name
-
-            intent.putExtra("index", index)
-            intent.putExtra("name", name)
             intent.putExtra("file", file)
 
             startActivity(intent)
